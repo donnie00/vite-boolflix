@@ -3,16 +3,19 @@
 		<h1 class="text-center">Hello Net</h1>
 
 		<TheHeader @startSearch="fetchMovies()" />
+
+		<TheMain />
 	</div>
 </template>
 
 <script>
 import axios from 'axios';
 import TheHeader from './components/TheHeader.vue';
+import TheMain from './components/TheMain.vue';
 import {store} from './store';
 
 export default {
-	components: {TheHeader},
+	components: {TheHeader, TheMain},
 
 	methods: {
 		fetchMovies() {
