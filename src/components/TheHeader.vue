@@ -2,11 +2,10 @@
 	<div class="searchBar input-group">
 		<input
 			v-model="store.searchText"
-			@click="performSearch"
 			class="form-control"
 			type="text"
 			placeholder="Search a film" />
-		<button class="btn btn-success">Go</button>
+		<button @click="performSearch" class="btn btn-success">Go</button>
 	</div>
 </template>
 
@@ -17,6 +16,12 @@ export default {
 		return {
 			store,
 		};
+	},
+
+	methods: {
+		performSearch() {
+			this.$emit('startSearch');
+		},
 	},
 };
 </script>

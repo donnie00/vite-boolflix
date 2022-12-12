@@ -2,7 +2,7 @@
 	<div class="main-container text-bg-dark">
 		<h1 class="text-center">Hello Net</h1>
 
-		<TheHeader />
+		<TheHeader @startSearch="fetchMovies()" />
 	</div>
 </template>
 
@@ -16,11 +16,30 @@ export default {
 
 	methods: {
 		fetchMovies() {
-			axios.get('https://api.themoviedb.org/3/search/', {
-				params: {
-					api_key: '4be321c822eae29fbba299f60ddac453',
-					query: store.searchText,
-				},
+			axios
+				.get('https://api.themoviedb.org/3/search/movie', {
+					params: {
+						api_key: '4be321c822eae29fbba299f60ddac453',
+						query: store.searchText,
+					},
+				})
+				.then((resp) => {
+					store.movies.push(...resp.data.results);
+					this.printResults();
+					store.searchText = '';
+				});
+		},
+
+		printResults() {
+			store.movies.forEach((movie) => {
+				const movieLog = {
+					title: movie.title,
+					originalTitle: movie.original_title,
+					language: movie.original_language,
+					vote: movie.vote_average,
+				};
+
+				console.log(movieLog);
 			});
 		},
 	},
