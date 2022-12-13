@@ -1,24 +1,24 @@
 <template>
-	<ul>
-		<li>Title: {{ getTitle }}</li>
-		<li>Original Title: {{ getOriginalTitle }}</li>
-		<li>
-			Poster:
-			<div
-				class="poster-container"
-				:style="{backgroundImage: `url(${backgroundUrl})`}"></div>
-		</li>
-		<li>
-			Language: {{ item.original_language }}
-			<span :class="`fi-${getFlagClass}`" class="fi m-2"></span>
-		</li>
-		<li>
-			Vote:
-			<span class="text-warning" v-for="number in getStarNumber">
-				&starf;
-			</span>
-		</li>
-	</ul>
+	<!--test di card :style="{backgroundImage: `url(${backgroundUrl})`}"-->
+	<div class="card text-light h-100">
+		<img :src="getImgPath" class="card-img" alt="..." />
+		<div class="card-text">
+			<ul class="list-unstyled">
+				<li>Title: {{ getTitle }}</li>
+				<li>Original Title: {{ getOriginalTitle }}</li>
+				<li>
+					Language: {{ item.original_language }}
+					<span :class="`fi-${getFlagClass}`" class="fi m-2"></span>
+				</li>
+				<li>
+					Vote:
+					<span class="text-warning" v-for="number in getStarNumber">
+						&starf;
+					</span>
+				</li>
+			</ul>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -35,8 +35,11 @@ export default {
 	data() {
 		return {
 			store,
-			backgroundUrl: `https://image.tmdb.org/t/p/w92/${this.item.poster_path}`,
 		};
+	},
+
+	methods: {
+		showInfo() {},
 	},
 
 	computed: {
@@ -59,14 +62,39 @@ export default {
 		getStarNumber() {
 			return Math.round(this.item.vote_average / 2);
 		},
-		printStars() {},
+
+		getImgPath() {
+			let toReturn = '';
+			const imgPath = this.item.poster_path;
+			if (imgPath !== 'null') {
+				toReturn = `https://image.tmdb.org/t/p/w500/${this.item.poster_path}`;
+			} else {
+				//da gestire
+			}
+
+			return toReturn;
+		},
 	},
 };
 </script>
 
-<style scoped>
-.poster-container {
-	height: 50px;
-	width: 50px;
+<style scoped lang="scss">
+.card {
+	overflow: hidden;
+	ul {
+		background-color: black;
+		visibility: hidden;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		margin-bottom: 0;
+	}
+	&:hover {
+		ul {
+			visibility: visible;
+		}
+	}
 }
 </style>
