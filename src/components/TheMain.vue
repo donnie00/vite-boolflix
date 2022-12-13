@@ -1,10 +1,11 @@
 <template>
-	<MovieCard v-for="movie in store.movies" :movie="movie" />
+	<MovieCard v-for="movie in store.movies" :item="movie" />
+	<MovieCard v-for="serie in store.series" :item="serie" />
 </template>
 
 <script>
 import MovieCard from './MovieCard.vue';
-import {store} from '../store';
+import {store, getCountryCode} from '../store';
 
 export default {
 	components: {MovieCard},
@@ -13,6 +14,10 @@ export default {
 		return {
 			store,
 		};
+	},
+
+	created() {
+		getCountryCode();
 	},
 };
 </script>
