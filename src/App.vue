@@ -1,10 +1,10 @@
 <template>
 	<div class="main-container text-bg-dark">
-		<h1 class="text-center">Hello Net</h1>
+		<div class="container">
+			<TheHeader @startSearch="fetchData()" />
 
-		<TheHeader @startSearch="fetchData()" />
-
-		<TheMain />
+			<TheMain />
+		</div>
 	</div>
 </template>
 
@@ -54,8 +54,9 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss">
+@use './styles/general.scss';
 .main-container {
-	height: 100%;
+	// height: 100%;
 }
 </style>
