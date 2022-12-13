@@ -13,21 +13,3 @@ export function getCountryCode() {
 		store.flagCode.push(country.code);
 	});
 }
-
-// export function omologateResults() {
-// 	const movies = store.movies;
-// 	const series = store.series;
-
-// 	movies.forEach((movie) => {
-// 		(movie['origina_title'] = movie['og_title']),
-// 			(movie['original_language'] = movie['og_language']);
-// 	});
-
-// 	movies.forEach((serie) => {
-// 		(serie['name'] = serie['name']),
-// 			(serie['origina_name'] = serie['og_title']),
-// 			(serie['original_language'] = serie['og_language']);
-// 	});
-
-// console.log(movies, series);
-// }
