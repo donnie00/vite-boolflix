@@ -1,5 +1,5 @@
 <template>
-	<div class="py-3">
+	<header class="py-2">
 		<h1 class="text-center">Hello Net</h1>
 
 		<div class="input-group">
@@ -10,7 +10,7 @@
 				placeholder="Search a film" />
 			<button @click="performSearch" class="btn btn-success">Go</button>
 		</div>
-	</div>
+	</header>
 </template>
 
 <script>
@@ -30,4 +30,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+header {
+	height: 120px;
+}
+</style>

@@ -1,22 +1,35 @@
 <template>
-	<!--test di card :style="{backgroundImage: `url(${backgroundUrl})`}"-->
-	<div class="card text-light h-100">
-		<img :src="getImgPath" class="card-img" alt="..." />
-		<div class="card-text">
+	<div class="card h-100 border-secondary text-light">
+		<img
+			:src="getImgPath('poster_path')"
+			class="card-img-top h-100"
+			alt="film-poster" />
+		<div
+			class="card-text"
+			:style="{backgroundImage: `url(${getImgPath('backdrop_path')})`}">
 			<ul class="list-unstyled">
-				<li>Title: {{ getTitle }}</li>
-				<li>Original Title: {{ getOriginalTitle }}</li>
+				<li><b>Original Title:</b> {{ getOriginalTitle }}</li>
 				<li>
-					Language: {{ item.original_language }}
+					<b>Language:</b> {{ item.original_language }}
 					<span :class="`fi-${getFlagClass}`" class="fi m-2"></span>
 				</li>
 				<li>
-					Vote:
-					<span class="text-warning" v-for="number in getStarNumber">
-						&starf;
+					<b>Vote:</b>
+					<span v-for="star in 5">
+						<span v-if="star <= getStarNumber" class="text-warning">
+							&starf;
+						</span>
+						<span v-else>&star;</span>
 					</span>
 				</li>
+				<li class="scrolling-li">
+					<b class="scrolling-b">Overview:</b>
+					{{ item.overview }}
+				</li>
 			</ul>
+		</div>
+		<div class="card-footer text-bg-dark text-center">
+			<span class="fw-bold"> {{ getTitle }} </span>
 		</div>
 	</div>
 </template>
@@ -40,6 +53,28 @@ export default {
 
 	methods: {
 		showInfo() {},
+
+		getImgPath(img) {
+			let toReturn = '';
+			let imgRes = '';
+
+			const imgPath = this.item[img];
+			// const imgPath = null;
+
+			if (imgPath !== null) {
+				if (img === 'poster_path') {
+					imgRes = 'w500';
+				} else if (img === 'backdrop_path') {
+					imgRes = 'w780';
+				}
+
+				toReturn = `https://image.tmdb.org/t/p/${imgRes}/${imgPath}`;
+			} else {
+				toReturn = '/no-img-avail.jpg';
+			}
+
+			return toReturn;
+		},
 	},
 
 	computed: {
@@ -62,18 +97,6 @@ export default {
 		getStarNumber() {
 			return Math.round(this.item.vote_average / 2);
 		},
-
-		getImgPath() {
-			let toReturn = '';
-			const imgPath = this.item.poster_path;
-			if (imgPath !== 'null') {
-				toReturn = `https://image.tmdb.org/t/p/w500/${this.item.poster_path}`;
-			} else {
-				//da gestire
-			}
-
-			return toReturn;
-		},
 	},
 };
 </script>
@@ -81,18 +104,39 @@ export default {
 <style scoped lang="scss">
 .card {
 	overflow: hidden;
-	ul {
-		background-color: black;
+
+	.card-img {
+	}
+
+	.card-text {
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: cover;
+
 		visibility: hidden;
 		position: absolute;
 		top: 0;
 		right: 0;
 		bottom: 0;
 		left: 0;
-		margin-bottom: 0;
+
+		// .scrolling-li {
+		// 	overflow-y: auto;
+		// }
+
+		// .scrolling-b {
+		// 	overflow-y: auto;
+		// }
 	}
+	ul {
+		margin-bottom: 0;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.4);
+		padding: 1rem;
+	}
+
 	&:hover {
-		ul {
+		.card-text {
 			visibility: visible;
 		}
 	}

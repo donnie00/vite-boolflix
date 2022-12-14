@@ -1,21 +1,24 @@
 <template>
-	<div class="wrapper">
-		<h2>Movies:</h2>
-		<div class="row row-cols-1 row-cols-md-3 g-3">
-			<div class="col" v-for="movie in store.movies">
-				<MovieCard :item="movie" />
+	<div class="body-wrapper">
+		<div class="movie-section">
+			<h2>Movies:</h2>
+
+			<div class="row row-cols-2 row-cols-md-5 g-3">
+				<div class="col" v-for="(movie, i) in store.movies" :key="i">
+					<MovieCard :item="movie" />
+				</div>
 			</div>
 		</div>
 
-		<h2>Series:</h2>
-		<div class="row row-cols-1 row-cols-md-3 g-3">
-			<div class="col" v-for="serie in store.series">
-				<MovieCard :item="serie" />
+		<div class="series-section">
+			<h2>Series:</h2>
+
+			<div class="row row-cols-2 row-cols-md-5 g-3">
+				<div class="col" v-for="serie in store.series">
+					<MovieCard :item="serie" />
+				</div>
 			</div>
 		</div>
-
-		<!-- <MovieCard v-for="movie in store.movies" :item="movie" />
-		<MovieCard v-for="serie in store.series" :item="serie" /> -->
 	</div>
 </template>
 
@@ -39,8 +42,21 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.wrapper {
-	height: 100vh;
-	overflow: auto;
+.body-wrapper {
+	// position: sticky;
+	// top: 0;
+
+	// height: calc(100vh - 120px);
+
+	h2 {
+		margin: 1rem 0;
+	}
+
+	[class$='-section'] {
+		// overflow: hidden;
+		.row {
+			// overflow: auto;
+		}
+	}
 }
 </style>

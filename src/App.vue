@@ -57,6 +57,6 @@ export default {
 <style lang="scss">
 @use './styles/general.scss';
 .main-container {
-	// height: 100%;
+	height: 100%;
 }
 </style>
