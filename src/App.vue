@@ -1,6 +1,6 @@
 <template>
-	<div class="main-container text-bg-dark">
-		<div class="container">
+	<div class="container">
+		<div class="main-container d-flex flex-column">
 			<TheHeader @startSearch="fetchData()" />
 
 			<TheMain />
@@ -19,6 +19,8 @@ export default {
 
 	methods: {
 		fetchMovies() {
+			store.movies = [];
+
 			axios
 				.get('https://api.themoviedb.org/3/search/movie', {
 					params: {
@@ -33,6 +35,8 @@ export default {
 		},
 
 		fetchSeries() {
+			store.series = [];
+
 			axios
 				.get('https://api.themoviedb.org/3/search/tv', {
 					params: {
@@ -43,12 +47,22 @@ export default {
 				.then((resp) => {
 					store.series.push(...resp.data.results);
 					store.searchText = '';
+				})
+				.catch((error) => {
+					store.loading = true;
+					alert(
+						'Qualcosa è andato storto, ricarica la pagina ed esegui di nuovo la ricerca'
+					);
 				});
 		},
 
 		fetchData() {
-			this.fetchMovies();
-			this.fetchSeries();
+			if (store.searchText != '') {
+				this.fetchMovies();
+				this.fetchSeries();
+			} else {
+				alert('Eseguire una ricerca valida!!!');
+			}
 		},
 	},
 };
@@ -56,7 +70,8 @@ export default {
 
 <style lang="scss">
 @use './styles/general.scss';
+
 .main-container {
-	height: 100%;
+	height: 100vh;
 }
 </style>
