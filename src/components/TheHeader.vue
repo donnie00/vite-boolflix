@@ -1,14 +1,38 @@
 <template>
-	<header class="py-2">
-		<h1 class="text-center">Hello Net</h1>
+	<header class="py-4 d-flex flex-column">
+		<div class="d-flex align-items-center">
+			<img class="me-5" src="/logo.png" alt="" />
 
-		<div class="input-group">
+			<div class="input-group">
+				<input
+					@keyup.enter="performSearch"
+					v-model="store.searchText"
+					class="form-control"
+					type="text"
+					placeholder="Search a film" />
+				<button @click="performSearch" class="btn btn-danger">Go</button>
+			</div>
+		</div>
+
+		<div class="sections text-center">
 			<input
-				v-model="store.searchText"
-				class="form-control"
-				type="text"
-				placeholder="Search a film" />
-			<button @click="performSearch" class="btn btn-success">Go</button>
+				class="d-none"
+				type="radio"
+				name="sectionSelect"
+				id="moviesSection"
+				value="moviesSection"
+				v-model="store.currentSection"
+				checked />
+			<label class="mx-5 fs-3" for="moviesSection"> Movies </label>
+
+			<input
+				class="d-none"
+				type="radio"
+				name="sectionSelect"
+				id="seriesSection"
+				value="seriesSection"
+				v-model="store.currentSection" />
+			<label class="mx-5 fs-3" for="seriesSection"> Series </label>
 		</div>
 	</header>
 </template>
@@ -32,6 +56,56 @@ export default {
 
 <style lang="scss" scoped>
 header {
-	height: 120px;
+	flex-shrink: 0;
+
+	.sections {
+		label {
+			color: grey;
+			position: relative;
+
+			transition: color 0.4s linear;
+
+			&::after {
+				content: '';
+				position: absolute;
+				bottom: 0;
+				right: 50%;
+				width: 0;
+				height: 5px;
+				background: #f00;
+				visibility: hidden;
+
+				transition: width 0.2s linear;
+			}
+
+			&::before {
+				content: '';
+				position: absolute;
+				bottom: 0;
+				left: 50%;
+				width: 0;
+				height: 5px;
+				background: #f00;
+				visibility: hidden;
+
+				transition: width 0.2s linear;
+			}
+		}
+
+		input:checked {
+			+ label {
+				color: white;
+
+				&::after {
+					visibility: visible;
+					width: 50%;
+				}
+				&::before {
+					visibility: visible;
+					width: 50%;
+				}
+			}
+		}
+	}
 }
 </style>
