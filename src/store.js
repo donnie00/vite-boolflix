@@ -3,6 +3,8 @@ import countries from '../node_modules/flag-icons/country.json';
 
 export const store = reactive({
 	searchText: '',
+	loading: false,
+	currentSection: 'moviesSection',
 	movies: [],
 	series: [],
 	flagCode: [],
