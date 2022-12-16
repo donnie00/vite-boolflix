@@ -1,5 +1,5 @@
 <template>
-	<div class="card h-100 border-secondary text-light">
+	<div class="card border-secondary text-light">
 		<img
 			:src="getImgPath('poster_path')"
 			class="card-img-top h-100"
@@ -14,11 +14,17 @@
 					{{ getOriginalTitle }}
 				</li>
 				<li>
-					<b>Language:</b> {{ item.original_language }}
+					<b>Language:</b>
+					<br />
+					<span class="text-uppercase">
+						{{ item.original_language }}
+					</span>
+
 					<span :class="`fi-${getFlagClass}`" class="fi m-2"></span>
 				</li>
 				<li>
 					<b>Vote:</b>
+					<br />
 					<span v-for="star in 5">
 						<span v-if="star <= getStarNumber" class="text-warning">
 							&starf;
@@ -28,6 +34,7 @@
 				</li>
 				<li class="overflow-auto">
 					<b>Overview:</b>
+					<br />
 					{{ item.overview }}
 				</li>
 			</ul>
@@ -106,33 +113,40 @@ export default {
 <style scoped lang="scss">
 .card {
 	overflow: hidden;
-	max-width: 25vh;
+
+	max-height: 500px;
 	min-width: 200px;
-	aspect-ratio: 9/16;
+	max-width: 300px;
 
 	.card-text {
 		background-repeat: no-repeat;
 		background-position: center;
 		background-size: cover;
 
-		display: none;
+		opacity: 0;
+		visibility: hidden;
+
 		position: absolute;
 		top: 0;
 		right: 0;
 		bottom: 0;
 		left: 0;
-	}
-	ul {
-		margin-bottom: 0;
-		height: 100%;
-		width: 100%;
-		background-color: rgba(0, 0, 0, 0.6);
-		padding: 1rem;
+
+		transition: all 0.15s linear;
+
+		ul {
+			margin-bottom: 0;
+			height: 100%;
+			width: 100%;
+			background-color: rgba(0, 0, 0, 0.6);
+			padding: 1rem;
+		}
 	}
 
 	&:hover {
 		.card-text {
-			display: inherit;
+			visibility: visible;
+			opacity: 1;
 		}
 	}
 }

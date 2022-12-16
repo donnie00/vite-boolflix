@@ -1,23 +1,31 @@
 <template>
 	<div class="body-wrapper d-flex flex-column">
-		<MoviesSection v-if="store.currentSection === 'moviesSection'" />
-		<SeriesSection v-else />
+		<Transition>
+			<HomeSection v-if="getSectionToShow === 'home'" />
+			<SearchedSection v-else :sectionToShow="getSectionToShow" />
+		</Transition>
 	</div>
 </template>
 
 <script>
-import MoviesSection from './MoviesSection.vue';
-import SeriesSection from './SeriesSection.vue';
+import SearchedSection from './SearchedSection.vue';
+import HomeSection from './HomeSection.vue';
 
-import {store, getCountryCode} from '../store';
+import {store, getCountryCode, getListForHome} from '../store';
 
 export default {
-	components: {MoviesSection, SeriesSection},
+	components: {SearchedSection, HomeSection},
 
 	data() {
 		return {
 			store,
 		};
+	},
+
+	computed: {
+		getSectionToShow() {
+			return this.store.currentSection;
+		},
 	},
 
 	created() {
@@ -27,10 +35,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@use '../styles/transition.scss';
 .body-wrapper {
 	flex-grow: 1;
 
 	overflow: auto;
-	margin: 1rem 0;
+	padding: 0 50px;
 }
 </style>

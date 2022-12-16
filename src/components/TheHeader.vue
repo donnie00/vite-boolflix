@@ -14,25 +14,51 @@
 			</div>
 		</div>
 
-		<div class="sections text-center">
+		<div
+			class="sections text-center d-flex flex-column align-items-center justify-content-center d-md-block">
+			<input
+				class="d-none"
+				type="radio"
+				name="sectionSelect"
+				id="homeSection"
+				value="home"
+				v-model="store.currentSection"
+				checked />
+			<label class="mx-5 fs-3" for="homeSection"> Home </label>
+
 			<input
 				class="d-none"
 				type="radio"
 				name="sectionSelect"
 				id="moviesSection"
-				value="moviesSection"
-				v-model="store.currentSection"
-				checked />
-			<label class="mx-5 fs-3" for="moviesSection"> Movies </label>
+				value="movies"
+				v-model="store.currentSection" />
+			<label class="mx-5 fs-3" for="moviesSection">
+				<span>
+					<img
+						class="d-none d-md-inline-block"
+						src="../assets/magnifying_glass_tilted_right_u1F50E_icon_48x48.png"
+						alt="" />
+					Movies
+				</span>
+			</label>
 
 			<input
 				class="d-none"
 				type="radio"
 				name="sectionSelect"
 				id="seriesSection"
-				value="seriesSection"
+				value="series"
 				v-model="store.currentSection" />
-			<label class="mx-5 fs-3" for="seriesSection"> Series </label>
+			<label class="mx-5 fs-3" for="seriesSection">
+				<span>
+					<img
+						class="d-none d-md-inline-block"
+						src="../assets/magnifying_glass_tilted_right_u1F50E_icon_48x48.png"
+						alt="" />
+					Series
+				</span>
+			</label>
 		</div>
 	</header>
 </template>
